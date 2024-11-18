@@ -7,10 +7,11 @@ import Landing from './components/Landing/Landing';
 import Dashboard from './components/Dashboard/Dashboard';
 import SignupForm from './components/SignupForm/SignupForm'
 import SigninForm from './components/SigninForm/SigninForm'
+
 // Course Components
 import CourseList from './components/CourseList/CourseList'
 import CourseForm from './components/CourseForm/CourseForm'
-
+import CourseDetails from './components/CourseDetails/CourseDetails'; 
 
 // Services
 import * as authService from '../src/services/authService';
@@ -57,6 +58,8 @@ const App = () => {
             <>
               <Route path="/" element={<Dashboard user={user} />} />
               <Route path="/courses" element={<CourseList courses={courses} />} />
+              <Route path="/courses/:courseId" element={<CourseDetails />} />
+
 
               
               { user.role === 'instructor' ? (
