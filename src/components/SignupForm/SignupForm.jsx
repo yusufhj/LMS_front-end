@@ -9,6 +9,7 @@ const SignupForm = (props) => {
     username: '',
     password: '',
     passwordConf: '',
+    role: "student",
   });
 
   const updateMessage = (msg) => {
@@ -17,12 +18,14 @@ const SignupForm = (props) => {
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    console.log(formData)
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
       const newUserResponse = await authService.signup(formData)
+      console.log(newUserResponse)
       props.setUser(newUserResponse.user); //because the response has token and user
       navigate('/')
     } catch (err) {
@@ -30,10 +33,10 @@ const SignupForm = (props) => {
     }
   }
 
-  const { username, password, passwordConf } = formData;
+  const { username, password, passwordConf, role } = formData;
 
   const isFormInvalid = () => {
-    return !(username && password && password === passwordConf);
+    return !(username && password && password === passwordConf && role);
   };
 
   return (
@@ -66,11 +69,29 @@ const SignupForm = (props) => {
           <input
             type="password"
             id="confirm"
-            value={passwordConf}
             name="passwordConf"
+            value={passwordConf}
             onChange={handleChange}
           />
         </div>
+        <div>
+          <label htmlFor="role">Role:</label>
+          <select 
+            id="role" 
+            name="role" 
+            onChange={handleChange} 
+            value={role}
+          >
+            <option 
+              value="student"
+
+            >
+                Student
+            </option>
+            <option value="instructor">Instructor</option>
+          </select>
+        </div>
+        
         <div>
           <button disabled={isFormInvalid()}>Sign Up</button>
           <Link to="/">
