@@ -1,5 +1,9 @@
-import { useParams } from 'react-router-dom';
-import * as courseServices from '../../services/courseService'
+import { useParams, Link } from 'react-router-dom'
+import { useEffect, useState, useContext } from 'react'
+import * as courseService from '../../services/courseService'
+import Loading from '../Loading/Loading'
+import LessonForm from '../LessonForm/LessonForm'
+import { AuthedUserContext } from '../../App'
 
 
 const CourseDetails = (props) => {
@@ -11,7 +15,7 @@ const CourseDetails = (props) => {
   
     useEffect(() => {
       const fetchCourse = async () => {
-        const CourseData = await courseServices.show(courseId)
+        const CourseData = await courseService.show(courseId)
         setCourse(CourseData)
       }
       fetchCourse()
@@ -46,9 +50,13 @@ const CourseDetails = (props) => {
           <article key={lesson._id}>
             <header>
               <p>
-                {lesson.author.username} posted on{' '}
-                {new Date(lesson.createdAt).toLocaleDateString()}
+                {lesson.title.username} posted on{new Data (lesson.createdAt).toLocaleDateString}
               </p>
+              &&
+              <>
+              <link to={`/courses/${courseId}/lessons/${lesson._id}/edit`}>Edit</link>
+              <button onClick={() => handleDeleteLesson(lesson._id)}>Delete</button>
+              </>
               
             </header>
             <p>{lesson.text}</p>

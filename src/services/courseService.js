@@ -1,4 +1,4 @@
-const BASE_URL = `${import.meta.env.VITE_EXPRESS_BACKEND_URL}/courses`;
+const BASE_URL = `${import.meta.env.VITE_BACKEND_URL}/courses`;
 
 const index = async () => {
     try {
@@ -55,6 +55,35 @@ const createLesson = async (courseId, lessonFormData) => {
         console.log(error)
     }
 }
+export const deleteLesson = async (courseId, lessonId) => {
+    try {
+      const res = await fetch(`${BASE_URL}/${courseId}/lessons/${lessonId}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+      return res.json();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  
+  export const updateLesson = async (courseId, lessonId, lessonFormData) => {
+    try {
+      const res = await fetch(`${BASE_URL}/${courseId}/lessons/${lessonId}`, {
+        method: 'PUT',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(lessonFormData),
+      });
+      return res.json();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
 const deleteCourse = async (courseId) => {
     try {
@@ -86,5 +115,5 @@ const update = async (courseId, courseFormData) => {
     }
 }
 
-export { index, show, create, createLesson, deleteCourse, update }
+export { index, show, create, createLesson, deleteCourse, update, updateLesson, deleteLesson }
   
