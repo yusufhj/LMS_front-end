@@ -3,17 +3,15 @@ import { Link } from 'react-router-dom'
 const CourseList = props => {
   return (
     <main>
+      <h1>Course List</h1>
       {props.courses.map(course => (
         <Link key={course._id} to={`/courses/${course._id}`}>
           <article>
             <header>
               <h2>{course.title}</h2>
-              <p>
-                {course.title.username} posted on{' '}
-                {new Date(course.createdAt).toLocaleDateString()}
-              </p>
+              <p>{course.instructor.username}</p> {/* doesnt work */}
             </header>
-            <p>{course.text}</p>
+            <p>{course.description}</p>
           </article>
         </Link>
       ))}

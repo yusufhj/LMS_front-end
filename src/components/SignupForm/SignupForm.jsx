@@ -18,14 +18,14 @@ const SignupForm = (props) => {
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    console.log(formData)
+    // console.log(formData)
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
       const newUserResponse = await authService.signup(formData)
-      console.log(newUserResponse)
+      // console.log(newUserResponse)
       props.setUser(newUserResponse.user); //because the response has token and user
       navigate('/')
     } catch (err) {

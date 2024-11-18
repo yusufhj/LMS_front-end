@@ -1,4 +1,4 @@
-const BASE_URL = `${import.meta.env.VITE_EXPRESS_BACKEND_URL}/courses`;
+const BASE_URL = `${import.meta.env.VITE_BACKEND_URL}/courses`;
 
 const index = async () => {
     try {
@@ -10,5 +10,6 @@ const index = async () => {
       console.log(error);
     }
 };
-  
+
+
 export { index };

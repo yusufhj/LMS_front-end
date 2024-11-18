@@ -1,12 +1,31 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import * as courseService from '../../services/courseService'
+/*
+const courseSchema = mongoose.Schema(
+    {
+        title: {
+            type: String,
+            required: true,
+        },
+        description: {
+            type: String,
+        },
+        instructor: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+        },
+        lessons: [lessonSchema],
+    }, 
+);
 
+*/
 const CourseForm = props => {
   const [formData, setFormData] = useState({
     title: '',
-    text: '',
-    category: 'News',
+    description: '',
+    instructor: '',
+    lessons: [],
   })
 
   const [loading, setLoading] = useState(false)
@@ -30,8 +49,8 @@ const CourseForm = props => {
     } else {
       setFormData({
         title: '',
-        text: '',
-        category: 'News',
+        description: '',
+        lessons: [],
       })
     }
   }, [CourseId])
@@ -42,7 +61,7 @@ const CourseForm = props => {
 
   const handleSubmit = event => {
     event.preventDefault()
-    if (!formData.title || !formData.text) {
+    if (!formData.title || !formData.description) {
       alert('Please fill in all required fields.')
       return
     }
@@ -69,31 +88,15 @@ const CourseForm = props => {
             value={formData.title}
             onChange={handleChange}
           />
-          <label htmlFor="text-input">Text</label>
+          <label htmlFor="description-input">Description</label>
           <textarea
             type="text"
             required
-            name="text"
-            id="text-input"
+            name="description"
+            id="description-input"
             value={formData.text}
             onChange={handleChange}
           />
-          <label htmlFor="category-input">Category</label>
-          <select
-            type="text"
-            required
-            name="category"
-            id="category-input"
-            value={formData.category}
-            onChange={handleChange}
-          >
-            <option value="News">News</option>
-            <option value="Games">Games</option>
-            <option value="Music">Music</option>
-            <option value="Movies">Movies</option>
-            <option value="Sports">Sports</option>
-            <option value="Television">Television</option>
-          </select>
           <button type="submit">SUBMIT</button>
         </form>
       )}

@@ -4,22 +4,30 @@ import { AuthedUserContext } from '../../App';
 
 const NavBar = ({ handleSignout }) => {
   const user = useContext(AuthedUserContext);
-  console.log(user);
+  // console.log(user);
   return (
     <>
       {user ? (
-        
+        // signed in user
           <ul>
             <li>Welcome, {user.username}</li>
             <li>
               <Link to="/">HOME</Link>
             </li>
-            <li>
-              {/* <Link to='/courses'>courses</Link> */}
-            </li>
-            <li>
-              {/* <Link to='/courses/new'>NEW COURSE</Link> */}
-            </li>
+            {/* ROLE BASED NAVBAR */}
+            { user.role === 'instructor' ? (
+              // instructor navbar
+                <li>
+                  <Link to="/courses/new">Add Course</Link>
+                </li>
+              ) : (
+                // student navbar
+                <li>
+                  <Link to="/courses">Courses</Link>
+                </li>
+              )
+            }
+
             <li>
               <Link to="" onClick={handleSignout}>
                 Sign Out
@@ -28,6 +36,7 @@ const NavBar = ({ handleSignout }) => {
           </ul>
      
       ) : (
+        // not signed in
           <ul>
             <li>
               <Link to="/signin">Sign In</Link>
