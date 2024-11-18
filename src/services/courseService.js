@@ -10,5 +10,18 @@ const index = async () => {
       console.log(error);
     }
 };
+
+const show = async (courseId) => {
+    try {
+        const res = await fetch(`${BASE_URL}/${courseId}`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
+        return res.json()
+    } catch (error) {
+        console.log(error)
+    }
+}
   
-export { index };
+export { index, show, };
