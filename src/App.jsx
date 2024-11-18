@@ -1,13 +1,18 @@
 import { useState, createContext, useEffect } from 'react'
 import { Routes, Route, useNavigate } from 'react-router-dom'
-import NavBar from './components/NavBar/NavBar'
-import Landing from './components/Landing/Landing'
-import Dashboard from './components/Dashboard/Dashboard'
+
+// Components
+import NavBar from './components/NavBar/NavBar';
+import Landing from './components/Landing/Landing';
+import Dashboard from './components/Dashboard/Dashboard';
 import SignupForm from './components/SignupForm/SignupForm'
 import SigninForm from './components/SigninForm/SigninForm'
-import * as authService from '../src/services/authService' 
-import * as  courseService from '../src/services/courseService'
 import CourseList from './components/CourseList/CourseList'
+
+// Services
+import * as authService from '../src/services/authService';
+import * as  courseService from '../src/services/courseService'
+
 
 const App = () => {
 
