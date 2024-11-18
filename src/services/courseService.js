@@ -9,6 +9,6 @@ const index = async () => {
     } catch (error) {
       console.log(error);
     }
-  };
+};
   
-  export { index };
+export { index };
