@@ -23,16 +23,12 @@ This project is a Learning Management System (LMS) that allows users to create, 
 - Function signin that contains an username and password.
 - If user username and password is correct sign in the user, if not print a message that’s says invalid credentials.
 
-
 ### Course Management
-
 - Function createCourse if (userRole == instructor ID) user can use crud form else the user can read only.
 - Function enterCourse if (userRole == student ID) user can register in courses and every lesson inside any course needs to have a completed button.
 - Add CRUD in the courses and lessons to give the instructor the ability to create a new one.
 
-
 ### Progress Tracking
-
 - Function completedLesson if the student lesson is completed return lesson completed.
 - Function completedCourse if all the lessons are completed return completed course.
 

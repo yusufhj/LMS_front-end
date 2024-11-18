@@ -1,11 +1,16 @@
 import { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
+
+// Components
 import NavBar from './components/NavBar/NavBar';
 import Landing from './components/Landing/Landing';
 import Dashboard from './components/Dashboard/Dashboard';
 import SignupForm from './components/SignupForm/SignupForm'
 import SigninForm from './components/SigninForm/SigninForm'
+
+// Services
 import * as authService from '../src/services/authService';
+
 
 const App = () => {
   const [user, setUser] = useState(authService.getUser());
