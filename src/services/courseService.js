@@ -117,3 +117,4 @@ const update = async (courseId, courseFormData) => {
 
 export { index, show, create, createLesson, deleteCourse, update, updateLesson, deleteLesson }
   
+

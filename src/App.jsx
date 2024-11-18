@@ -1,5 +1,5 @@
-import { useState, createContext, useEffect } from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { useState, createContext, useEffect  } from 'react'
+import { Routes, Route, useNavigate } from 'react-router-dom'
 
 // Components
 import NavBar from './components/NavBar/NavBar';
@@ -7,7 +7,10 @@ import Landing from './components/Landing/Landing';
 import Dashboard from './components/Dashboard/Dashboard';
 import SignupForm from './components/SignupForm/SignupForm'
 import SigninForm from './components/SigninForm/SigninForm'
+
+// Course Components
 import CourseList from './components/CourseList/CourseList'
+import CourseForm from './components/CourseForm/CourseForm'
 import CourseDetails from './components/CourseDetails/CourseDetails'; 
 
 // Services
@@ -22,6 +25,8 @@ const App = () => {
   const [user, setUser] = useState(authService.getUser());
   const [courses, setCourses] = useState([]);
 
+  const navigate = useNavigate();
+
   const handleSignout = () => {
     authService.signout()
     setUser(null)
@@ -35,23 +40,52 @@ const App = () => {
     if (user) fetchAllCourses();
   }, [user]);
 
+  const handleAddCourse = async (newCourseData) => {
+    newCourseData.instructor = user._id;
+    const newCourse = await courseService.create(newCourseData);
+    setCourses([newCourse, ...courses]);
+
+    navigate('/courses');
+  }
+
   return (
     <>
-      <NavBar user={user} handleSignout={handleSignout} />
-      <Routes>
-        { user ? (
-          <>          
-            <Route path="/" element={<Dashboard user={user} />} />
-            <Route path="/courses" element={<CourseList courses={courses} />} />
-            <Route path="/courses/:courseId" element={<CourseDetails />} />
-          </>
-        ) : (
-          <Route path="/" element={<Landing />} />
-        )}
-        <Route path="/signup" element={<SignupForm setUser={setUser} />} />
-        <Route path='/signin' element={<SigninForm setUser={setUser} />} />
+      <AuthedUserContext.Provider value={user}>
+        <NavBar user={user} handleSignout={handleSignout} />
+        <Routes>
+          { user ? (
+              // all signed in user routes
+            <>
+              <Route path="/" element={<Dashboard user={user} />} />
+              <Route path="/courses" element={<CourseList courses={courses} />} />
+              <Route path="/courses/:courseId" element={<CourseDetails />} />
 
-      </Routes>
+
+              
+              { user.role === 'instructor' ? (
+                  // instructor routes
+                <>
+                  <Route path="/courses/new" element={<CourseForm handleAddCourse={handleAddCourse} />} />
+                </>
+
+              ) : (
+
+                // student routes
+                <>
+                  <Route path="/" element={<Dashboard user={user} />} />
+                </>
+              )}
+            </>
+          ) : (
+
+            // not signed in routes
+            <Route path="/" element={<Landing />} />
+          )}
+
+          <Route path="/signup" element={<SignupForm setUser={setUser} />} />
+          <Route path='/signin' element={<SigninForm setUser={setUser} />} />
+        </Routes>
+      </AuthedUserContext.Provider>
     </>
   );
 };
