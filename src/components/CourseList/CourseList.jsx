@@ -9,7 +9,7 @@ const CourseList = props => {
             <header>
               <h2>{course.title}</h2>
               <p>
-                {course.author.username} posted on{' '}
+                {course.title.username} posted on{' '}
                 {new Date(course.createdAt).toLocaleDateString()}
               </p>
             </header>
