@@ -3,6 +3,7 @@ import { useEffect, useState, useContext } from 'react'
 import { AuthedUserContext } from '../../App'
 
 import * as courseService from '../../services/courseService'
+import * as authService from '../../services/authService'
 import LessonForm from '../LessonForm/LessonForm'
 
 
@@ -16,7 +17,7 @@ const CourseDetails = (props) => {
     useEffect(() => {
       const fetchCourse = async () => {
         const CourseData = await courseService.show(courseId)
-        // CourseData.instructor = await courseService.getInstructorUsername(CourseData.instructorId)
+        CourseData.instructor = await authService.getInstructorById(CourseData.instructor)
         console.log("COURSE DATA: ", CourseData)
         setCourse(CourseData)
       }
@@ -27,7 +28,7 @@ const CourseDetails = (props) => {
     const handleAddLesson = async lessonFormData => {
         const newLesson = await courseService.createLesson(courseId, lessonFormData)
         setCourse({ ...course, lessons: [...course.lessons, newLesson] })
-      }
+    }
 
     if (!course) return <h1>Loading...</h1>
   

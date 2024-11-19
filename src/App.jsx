@@ -36,25 +36,14 @@ const App = () => {
   useEffect(() => {
     const fetchAllCourses = async () => {
       const coursesData = await courseService.index();
-      // console.log(coursesData);
+      
+      await Promise.all(coursesData.map(async (course) => {
+        course.instructor = await authService.getInstructorById(course.instructor);
+      }));
 
-      const fetchInstructorDetails = async (instructorId) => {
-        const instructorData = await authService.getInstructorById(instructorId);
-        // console.log(instructorData);
-        return instructorData;
-      };
+      console.log(coursesData);
 
-      const coursesWithInstructors = await Promise.all(
-        coursesData.map(async (course) => {
-          if (course.instructor && user) {
-            course.instructor = await fetchInstructorDetails(course.instructor);
-          }
-          // console.log('couuuruseeeee: ', course);
-          return course;
-        })
-      );
-
-      setCourses(coursesWithInstructors);
+      setCourses(coursesData);
     };
     if (user) fetchAllCourses();
   }, [user]);
@@ -63,6 +52,7 @@ const App = () => {
     newCourseData.instructor = user;
     // console.log('New course data ',newCourseData);
     const newCourse = await courseService.create(newCourseData);
+    newCourse.instructor = user.username;
     setCourses([newCourse, ...courses]);
     // console.log('New Course after added to db',newCourse);
 

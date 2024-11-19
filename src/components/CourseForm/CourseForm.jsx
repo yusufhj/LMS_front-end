@@ -40,8 +40,6 @@ const CourseForm = props => {
         setFormData(CourseData)
       } catch (error) {
         console.error('Error fetching course data:', error)
-      } finally {
-        setLoading(false)
       }
     }
     if (CourseId) {

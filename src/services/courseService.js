@@ -85,6 +85,7 @@ const createLesson = async (courseId, lessonFormData) => {
       console.log(error)
   }
 }
+
 const deleteLesson = async (courseId, lessonId) => {
   try {
     const res = await fetch(`${BASE_URL}/${courseId}/lessons/${lessonId}`, {

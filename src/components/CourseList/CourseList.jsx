@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 
 const CourseList = (props) => {
+  
   return (
     <main>
       <h1>Course List</h1>
