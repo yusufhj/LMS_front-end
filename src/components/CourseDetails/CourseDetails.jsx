@@ -1,9 +1,9 @@
 import { useParams, Link } from 'react-router-dom'
 import { useEffect, useState, useContext } from 'react'
-import * as courseService from '../../services/courseService'
-import Loading from '../Loading/Loading'
-import LessonForm from '../LessonForm/LessonForm'
 import { AuthedUserContext } from '../../App'
+
+import * as courseService from '../../services/courseService'
+import LessonForm from '../LessonForm/LessonForm'
 
 
 const CourseDetails = (props) => {
@@ -21,7 +21,7 @@ const CourseDetails = (props) => {
       fetchCourse()
     }, [courseId])
 
-    if (!course) return <Loading />
+    // if (!course) return <Loading />
   
     return (
     <main>

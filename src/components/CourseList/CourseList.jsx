@@ -9,7 +9,9 @@ const CourseList = props => {
           <article>
             <header>
               <h2>{course.title}</h2>
-              <p>{course.instructor.username}</p> {/* doesnt work */}
+
+              {/* the course.instructor is an ObjectId('') i need to populate */}
+
             </header>
             <p>{course.description}</p>
           </article>
