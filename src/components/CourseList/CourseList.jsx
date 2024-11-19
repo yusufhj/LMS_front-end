@@ -9,8 +9,7 @@ const CourseList = (props) => {
           <article>
             <header>
               <h2>{course.title}</h2>
-              {/* Log the course data to ensure it's correct */}
-              {console.log('Course:', course)}
+              <p>By {course.instructor}</p>
             </header>
             <p>{course.description}</p>
           </article>

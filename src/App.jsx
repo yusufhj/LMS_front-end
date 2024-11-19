@@ -36,21 +36,39 @@ const App = () => {
   useEffect(() => {
     const fetchAllCourses = async () => {
       const coursesData = await courseService.index();
-      setCourses(coursesData);
+      // setCourses(coursesData);
+      // const coursesWithInstructors = await courseService.index({ populate: 'instructor' });
+      // console.log("attempt to populate",coursesWithInstructors);
+      // setCourses(coursesWithInstructors);
       console.log(coursesData);
-      coursesData.forEach(course => {
-        // pull the instructor data from the course
-        console.log(course.instructor);
-      });
-      console.log(coursesData[0].instructor);
+
+      const fetchInstructorDetails = async (instructorId) => {
+        const instructorData = await authService.getInstructorById(instructorId);
+        // console.log(instructorData);
+        return instructorData;
+      };
+
+      const coursesWithInstructors = await Promise.all(
+        coursesData.map(async (course) => {
+          if (course.instructor && user) {
+            course.instructor = await fetchInstructorDetails(course.instructor);
+          }
+          // console.log('couuuruseeeee: ', course);
+          return course;
+        })
+      );
+
+      setCourses(coursesWithInstructors);
     };
     if (user) fetchAllCourses();
   }, [user]);
 
   const handleAddCourse = async (newCourseData) => {
     newCourseData.instructor = user;
+    // console.log('New course data ',newCourseData);
     const newCourse = await courseService.create(newCourseData);
     setCourses([newCourse, ...courses]);
+    // console.log('New Course after added to db',newCourse);
 
     navigate('/courses');
   }
