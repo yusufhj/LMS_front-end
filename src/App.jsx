@@ -73,8 +73,6 @@ const App = () => {
     navigate('/courses');
   }
 
-  
-
   return (
     <>
       <AuthedUserContext.Provider value={user}>
