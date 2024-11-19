@@ -36,11 +36,7 @@ const App = () => {
   useEffect(() => {
     const fetchAllCourses = async () => {
       const coursesData = await courseService.index();
-      // setCourses(coursesData);
-      // const coursesWithInstructors = await courseService.index({ populate: 'instructor' });
-      // console.log("attempt to populate",coursesWithInstructors);
-      // setCourses(coursesWithInstructors);
-      console.log(coursesData);
+      // console.log(coursesData);
 
       const fetchInstructorDetails = async (instructorId) => {
         const instructorData = await authService.getInstructorById(instructorId);
