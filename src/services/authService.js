@@ -53,4 +53,14 @@ export const getUser = () =>  {
 export const signout = () => {
     localStorage.removeItem('token');
 };
-  
+
+export const getInstructorById = async (instructorId) => {
+    try {
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/profiles/${instructorId}`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+      });
+      return res.json();
+    } catch (error) {
+      console.log(error);
+    }
+}
