@@ -1,9 +1,8 @@
 import { useParams, Link } from 'react-router-dom'
 import { useEffect, useState, useContext } from 'react'
-import { AuthedUserContext } from '../../App'
-
 import * as courseService from '../../services/courseService'
 import LessonForm from '../LessonForm/LessonForm'
+import { AuthedUserContext } from '../../App'
 
 
 const CourseDetails = (props) => {
@@ -21,12 +20,12 @@ const CourseDetails = (props) => {
       fetchCourse()
     }, [courseId])
 
-
     const handleAddLesson = async lessonFormData => {
         const newLesson = await courseService.createLesson(courseId, lessonFormData)
         setHoot({ ...course, lessons: [...course.lessons, newLesson] })
       }
 
+    if (!course) return <Loading />
   
     return (
     <main>

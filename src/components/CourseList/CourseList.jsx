@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
-const CourseList = props => {
+const CourseList = (props) => {
   return (
     <main>
       <h1>Course List</h1>
@@ -9,16 +9,15 @@ const CourseList = props => {
           <article>
             <header>
               <h2>{course.title}</h2>
-
-              {/* the course.instructor is an ObjectId('') i need to populate */}
-
+              {/* Log the course data to ensure it's correct */}
+              {console.log('Course:', course)}
             </header>
             <p>{course.description}</p>
           </article>
         </Link>
       ))}
     </main>
-  )
-}
+  );
+};
 
-export default CourseList
+export default CourseList;
