@@ -59,6 +59,18 @@ const App = () => {
     navigate('/courses');
   }
 
+  const handleUpdateCourse = async (courseId, updatedCourseData) => {
+    const updatedCourse = await courseService.update(courseId, updatedCourseData);
+    setCourses(courses.map(course => course._id === courseId ? updatedCourse : course));
+    navigate('/courses/' + courseId);
+  }
+
+  const handleDeleteCourse = async (courseId) => {
+    await courseService.deleteCourse(courseId);
+    setCourses(courses.filter(course => course._id !== courseId));
+    navigate('/courses');
+  }
+
   return (
     <>
       <AuthedUserContext.Provider value={user}>
@@ -69,20 +81,20 @@ const App = () => {
             <>
               <Route path="/" element={<Dashboard user={user} />} />
               <Route path="/courses" element={<CourseList courses={courses} />} />
-              <Route path="/courses/:courseId" element={<CourseDetails />} />
 
-
-              
               { user.role === 'instructor' ? (
-                  // instructor routes
+                // instructor routes
                 <>
+                  <Route path="/courses/:courseId" element={<CourseDetails handleDeleteCourse={handleDeleteCourse}  />} />
                   <Route path="/courses/new" element={<CourseForm handleAddCourse={handleAddCourse} />} />
+                  <Route path="/courses/:courseId/edit" element={<CourseForm handleUpdateCourse={handleUpdateCourse} />} />
                 </>
 
               ) : (
 
                 // student routes
                 <>
+                  <Route path="/courses/:courseId" element={<CourseDetails  />} />
                   <Route path="/" element={<Dashboard user={user} />} />
                 </>
               )}

@@ -80,6 +80,7 @@ const createLesson = async (courseId, lessonFormData) => {
           },
           body: JSON.stringify(lessonFormData)
       })
+      console.log(res)
       return res.json()
   } catch (error) {
       console.log(error)

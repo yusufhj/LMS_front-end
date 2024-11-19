@@ -10,7 +10,7 @@ const CourseList = (props) => {
           <article>
             <header>
               <h2>{course.title}</h2>
-              <p>By {course.instructor}</p>
+              <p>By {course.instructor.user.username}</p>
             </header>
             <p>{course.description}</p>
           </article>

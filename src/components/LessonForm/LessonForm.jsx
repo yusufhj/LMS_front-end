@@ -1,12 +1,10 @@
 import { useState } from 'react';
 
-const LessonForm = () => {
+const LessonForm = ({ handleAddLesson }) => {
   const [formData, setFormData] = useState({
     title: '',
     content: '',
   });
-
-  const [lessons, setLessons] = useState([]);
 
   const handleChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
@@ -14,7 +12,7 @@ const LessonForm = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setLessons([...lessons, formData]);
+    handleAddLesson(formData);
     setFormData({ title: '', content: '' });
   };
 
@@ -39,14 +37,6 @@ const LessonForm = () => {
         ></textarea>
         <button type="submit">ADD LESSON</button>
       </form>
-      <ul>
-        {lessons.map((lesson, index) => (
-          <li key={index}>
-            <h2>{lesson.title}</h2>
-            <p>{lesson.content}</p>
-          </li>
-        ))}
-      </ul>
     </div>
   );
 };

@@ -37,9 +37,9 @@ const CourseDetails = (props) => {
       <header>
 
         <h1>{course.title}</h1>
-        <p>{course.instructor}</p>
+        <p>By {course.instructor.user.username}</p>
     
-        {course.instructor === user._id && (
+        {course.instructor.user._id === user._id && (
           <>
             <Link to={`/courses/${courseId}/edit`}>EDIT</Link>
             <button onClick={() => props.handleDeleteCourse(courseId)}>
@@ -50,8 +50,10 @@ const CourseDetails = (props) => {
       </header>
       <p>{course.description}</p>
       <section>
-        <h2>lessons</h2>
+      {course.instructor.user._id === user._id && (
         <LessonForm handleAddLesson={handleAddLesson} />
+      )}
+        <h2>lessons</h2>
         {!course.lessons.length && <p>There are no lessons.</p>}
         {course.lessons.map(lesson => (
           <article key={lesson._id}>
