@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
-const CourseList = props => {
+const CourseList = (props) => {
   return (
     <main>
       <h1>Course List</h1>
@@ -16,7 +16,7 @@ const CourseList = props => {
         </Link>
       ))}
     </main>
-  )
-}
+  );
+};
 
-export default CourseList
+export default CourseList;

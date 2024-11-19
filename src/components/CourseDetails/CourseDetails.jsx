@@ -31,12 +31,10 @@ const CourseDetails = (props) => {
     return (
     <main>
       <header>
-        <p>{course.category.toUpperCase()}</p>
+
         <h1>{course.title}</h1>
-        <p>
-          {course.title.username} posted on{' '}
-          {new Date(course.createdAt).toLocaleDateString()}
-        </p>
+        <p>{course.instructor} posted on</p>
+    
         {course.title._id === user._id && (
           <>
             <Link to={`/courses/${courseId}/edit`}>EDIT</Link>
@@ -46,7 +44,7 @@ const CourseDetails = (props) => {
           </>
         )}
       </header>
-      <p>{course.text}</p>
+      <p>{course.description}</p>
       <section>
         <h2>lessons</h2>
         <LessonForm handleAddLesson={handleAddLesson} />
@@ -55,7 +53,7 @@ const CourseDetails = (props) => {
           <article key={lesson._id}>
             <header>
               <p>
-                {lesson.title.username} posted on{new Data (lesson.createdAt).toLocaleDateString}
+                {lesson.title}
               </p>
               &&
               <>
@@ -64,7 +62,7 @@ const CourseDetails = (props) => {
               </>
               
             </header>
-            <p>{lesson.text}</p>
+            <p>{lesson.content}</p>
           </article>
         ))}
       </section>
