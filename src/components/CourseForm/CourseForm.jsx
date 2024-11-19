@@ -69,6 +69,7 @@ const CourseForm = props => {
       props.handleUpdateCourse(CourseId, formData)
     } else {
       props.handleAddCourse(formData)
+      console.log('COURSE FORM:', formData)
     }
   }
 

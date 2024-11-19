@@ -18,6 +18,7 @@ import * as authService from '../src/services/authService';
 import * as  courseService from '../src/services/courseService'
 
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const AuthedUserContext = createContext(null);
 
 
@@ -36,12 +37,18 @@ const App = () => {
     const fetchAllCourses = async () => {
       const coursesData = await courseService.index();
       setCourses(coursesData);
+      console.log(coursesData);
+      coursesData.forEach(course => {
+        // pull the instructor data from the course
+        console.log(course.instructor);
+      });
+      console.log(coursesData[0].instructor);
     };
     if (user) fetchAllCourses();
   }, [user]);
 
   const handleAddCourse = async (newCourseData) => {
-    newCourseData.instructor = user._id;
+    newCourseData.instructor = user;
     const newCourse = await courseService.create(newCourseData);
     setCourses([newCourse, ...courses]);
 

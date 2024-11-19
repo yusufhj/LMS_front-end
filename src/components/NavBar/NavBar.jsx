@@ -12,7 +12,10 @@ const NavBar = ({ handleSignout }) => {
           <ul>
             <li>Welcome, {user.username}</li>
             <li>
-              <Link to="/">HOME</Link>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/courses">Courses</Link>
             </li>
             {/* ROLE BASED NAVBAR */}
             { user.role === 'instructor' ? (
@@ -23,7 +26,7 @@ const NavBar = ({ handleSignout }) => {
               ) : (
                 // student navbar
                 <li>
-                  <Link to="/courses">Courses</Link>
+                  <Link to="/courses">My Courses</Link>
                 </li>
               )
             }
