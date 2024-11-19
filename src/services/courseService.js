@@ -35,6 +35,7 @@ const create = async (courseFormData) => {
           },
           body: JSON.stringify(courseFormData)
       })
+      console.log(res)
       return res.json()
   } catch (error) {
       console.log(error)
@@ -117,7 +118,21 @@ const updateLesson = async (courseId, lessonId, lessonFormData) => {
   }
 };
 
+const enroll = async (courseId) => {
+  try {
+    const res = await fetch(`${BASE_URL}/${courseId}/enroll`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+}
 
-export { index, show, create, createLesson, deleteCourse, update, updateLesson, deleteLesson }
+
+export { index, show, create, createLesson, deleteCourse, update, updateLesson, deleteLesson, enroll }
   
 

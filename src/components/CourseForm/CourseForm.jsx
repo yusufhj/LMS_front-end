@@ -1,25 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import * as courseService from '../../services/courseService'
-/*
-const courseSchema = mongoose.Schema(
-    {
-        title: {
-            type: String,
-            required: true,
-        },
-        description: {
-            type: String,
-        },
-        instructor: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'User',
-        },
-        lessons: [lessonSchema],
-    }, 
-);
 
-*/
 const CourseForm = props => {
   const [formData, setFormData] = useState({
     title: '',
@@ -37,7 +19,7 @@ const CourseForm = props => {
       setLoading(true)
       try {
         const CourseData = await courseService.show(courseId)
-        console.log('COURSE DATAdaskjdbfjsdbfisdbfi:', CourseData)
+        // console.log('COURSE DATAdaskjdbfjsdbfisdbfi:', CourseData)
         setFormData(CourseData)
       } catch (error) {
         console.error('Error fetching course data:', error)

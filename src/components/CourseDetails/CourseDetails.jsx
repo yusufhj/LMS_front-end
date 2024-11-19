@@ -47,6 +47,9 @@ const CourseDetails = (props) => {
             </button>
           </>
         )}
+        {user.role === 'student' && (
+          <button onClick={() => props.handleEnroll(courseId)}>ENROLL</button>
+        )}
       </header>
       <p>{course.description}</p>
       <section>

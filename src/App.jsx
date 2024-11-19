@@ -49,12 +49,13 @@ const App = () => {
   }, [user]);
 
   const handleAddCourse = async (newCourseData) => {
+    
     newCourseData.instructor = user;
-    // console.log('New course data ',newCourseData);
-    const newCourse = await courseService.create(newCourseData);
-    newCourse.instructor = user.username;
+    const newCourse = await courseService.create(newCourseData)
+    newCourse.instructor = await authService.getInstructorById(newCourse.instructor);
+    // console.log('New Course after added to db', newCourse);
     setCourses([newCourse, ...courses]);
-    // console.log('New Course after added to db',newCourse);
+    // console.log('New Coursessss after added to db', courses);
 
     navigate('/courses');
   }
@@ -69,6 +70,12 @@ const App = () => {
     await courseService.deleteCourse(courseId);
     setCourses(courses.filter(course => course._id !== courseId));
     navigate('/courses');
+  }
+
+  const handleEnroll = async (courseId) => {
+    const enrollment = await courseService.enroll(courseId);
+    console.log('Enrolled in course', enrollment);
+    navigate('/courses/' + courseId);
   }
 
   return (
@@ -94,7 +101,7 @@ const App = () => {
 
                 // student routes
                 <>
-                  <Route path="/courses/:courseId" element={<CourseDetails  />} />
+                  <Route path="/courses/:courseId" element={<CourseDetails handleEnroll={handleEnroll} />} />
                   <Route path="/" element={<Dashboard user={user} />} />
                 </>
               )}
