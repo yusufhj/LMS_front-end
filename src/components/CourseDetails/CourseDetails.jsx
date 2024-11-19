@@ -21,7 +21,12 @@ const CourseDetails = (props) => {
       fetchCourse()
     }, [courseId])
 
-    // if (!course) return <Loading />
+
+    const handleAddLesson = async lessonFormData => {
+        const newLesson = await courseService.createLesson(courseId, lessonFormData)
+        setHoot({ ...course, lessons: [...course.lessons, newLesson] })
+      }
+
   
     return (
     <main>
