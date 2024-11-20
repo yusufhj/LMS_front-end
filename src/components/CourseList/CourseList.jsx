@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 const CourseList = (props) => {
-  
+  if (!props.courses) return <h1>Loading...</h1>;
   return (
     <main>
       <h1>Course List</h1>

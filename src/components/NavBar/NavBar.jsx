@@ -1,57 +1,52 @@
+import './NavBar.css';
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthedUserContext } from '../../App';
 
 const NavBar = ({ handleSignout }) => {
   const user = useContext(AuthedUserContext);
-  // console.log(user);
   return (
-    <>
+    <nav className='navbar'>
       {user ? (
         // signed in user
-          <ul>
-            <li>Welcome, {user.username}</li>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/courses">Courses</Link>
-            </li>
-            {/* ROLE BASED NAVBAR */}
-            { user.role === 'instructor' ? (
-              // instructor navbar
-                <li>
-                  <Link to="/courses/new">Add Course</Link>
-                </li>
-              ) : (
-                // student navbar
-                // <li>
-                //   <Link to="/courses">My Courses</Link>
-                // </li>
-                <>
-                </>
-              )
-            }
+          <div className="navbar-container">
+            <div className="navbar-left">
+                <Link to="/">Home</Link>
+            </div>
+            <div className="navbar-right">
+                <p><strong>Welcome, {user.username}</strong></p>
 
-            <li>
-              <Link to="" onClick={handleSignout}>
-                Sign Out
-              </Link>
-            </li>
-          </ul>
+                <Link to="/courses">Courses</Link>
+              {/* ROLE BASED NAVBAR */}
+              { user.role === 'instructor' ? (
+                // instructor navbar
+                  <Link to="/courses/new">Add Course</Link>
+                ) : (
+                  // student navbar
+                  //   <Link to="/courses">My Courses</Link>
+                  <>
+                  </>
+                )
+              }
+                <Link to="" onClick={handleSignout}>
+                  Sign Out
+                </Link>
+            </div>
+          </div>
      
       ) : (
-        // not signed in
-          <ul>
-            <li>
-              <Link to="/signin">Sign In</Link>
-            </li>
-            <li>
-              <Link to="/signup">Sign Up</Link>
-            </li>
-          </ul>
+        // Not signed-in user
+        <div className="navbar-container">
+          <div className="navbar-left">
+            <Link to="/">Home</Link>
+          </div>
+          <div className="navbar-right">
+            <Link to="/signin">Sign In</Link>
+            <Link to="/signup">Sign Up</Link>
+          </div>
+        </div>
       )}
-    </>
+    </nav>
   );
 };
 export default NavBar;

@@ -39,6 +39,7 @@ const App = () => {
     const fetchAllCourses = async () => {
       const coursesData = await courseService.index();
       
+      if (!coursesData) return;
       await Promise.all(coursesData.map(async (course) => {
         course.instructor = await authService.getInstructorById(course.instructor);
       }));
@@ -78,41 +79,52 @@ const App = () => {
   return (
     <>
       <AuthedUserContext.Provider value={user}>
-        <NavBar user={user} handleSignout={handleSignout} />
-        <Routes>
-          { user ? (
-              // all signed in user routes
-            <>
-              <Route path="/" element={<Dashboard user={user} />} />
-              <Route path="/courses" element={<CourseList courses={courses} />} />
-
-              { user.role === 'instructor' ? (
-                // instructor routes
+        <div className="page-container">
+          <header>
+            <NavBar user={user} handleSignout={handleSignout} />
+          </header>
+          <main className="content">
+            <Routes>
+              { user ? (
+                  // all signed in user routes
                 <>
-                  <Route path="/courses/:courseId" element={<CourseDetails handleDeleteCourse={handleDeleteCourse}  />} />
-                  <Route path="/courses/new" element={<CourseForm handleAddCourse={handleAddCourse} />} />
-                  <Route path="/courses/:courseId/edit" element={<CourseForm handleUpdateCourse={handleUpdateCourse} />} />
-                  <Route path="/courses/:courseId/lessons/:lessonId/edit" element={<LessonForm />} />
-                </>
+                  <Route path="/" element={<Dashboard user={user} />} />
+                  <Route path="/courses" element={<CourseList courses={courses} />} />
 
+                  { user.role === 'instructor' ? (
+                    // instructor routes
+                    <>
+                      <Route path="/courses/:courseId" element={<CourseDetails handleDeleteCourse={handleDeleteCourse}  />} />
+                      <Route path="/courses/new" element={<CourseForm handleAddCourse={handleAddCourse} />} />
+                      <Route path="/courses/:courseId/edit" element={<CourseForm handleUpdateCourse={handleUpdateCourse} />} />
+                      <Route path="/courses/:courseId/lessons/:lessonId/edit" element={<LessonForm />} />
+                    </>
+
+                  ) : (
+
+                    // student routes
+                    <>
+                      <Route path="/courses/:courseId" element={<CourseDetails />} />
+                      <Route path="/" element={<Dashboard user={user} />} />
+                    </>
+                  )}
+                </>
               ) : (
 
-                // student routes
+                // not signed in routes
                 <>
-                  <Route path="/courses/:courseId" element={<CourseDetails />} />
-                  <Route path="/" element={<Dashboard user={user} />} />
+                  <Route path="/" element={<Landing />} />
                 </>
               )}
-            </>
-          ) : (
+              <Route path="/signup" element={<SignupForm setUser={setUser} />} />
+              <Route path='/signin' element={<SigninForm setUser={setUser} />} />
+            </Routes>
+          </main>
+          <footer className="footer">
+            <p>© 2024 Your LMS. All Rights Reserved.</p>
+          </footer>
 
-            // not signed in routes
-            <Route path="/" element={<Landing />} />
-          )}
-
-          <Route path="/signup" element={<SignupForm setUser={setUser} />} />
-          <Route path='/signin' element={<SigninForm setUser={setUser} />} />
-        </Routes>
+        </div>
       </AuthedUserContext.Provider>
     </>
   );
