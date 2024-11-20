@@ -39,10 +39,10 @@ const CourseDetails = (props) => {
   const handleEditLesson = async () => {
     const updatedLesson = await courseService.updateLesson(courseId, editingLessonId, editingLessonData);
     setCourse({
-        ...course,
-        lessons: course.lessons.map((lesson) =>
-            lesson._id === editingLessonId ? updatedLesson : lesson
-        ),
+      ...course,
+      lessons: course.lessons.map((lesson) =>
+      lesson._id === editingLessonId ? updatedLesson : lesson
+      ),
     });
     setEditingLessonId(null); 
   };
@@ -54,7 +54,6 @@ const CourseDetails = (props) => {
           lessons: course.lessons.filter((lesson) => lesson._id !== lessonId),
       });
   };
-//   
 
   const handleEnroll = async (courseId) => {
     try {
@@ -174,13 +173,14 @@ const CourseDetails = (props) => {
       )}
         <h2>lessons</h2>
         {!course.lessons.length && <p>There are no lessons.</p>}
+        <ul>
         {course.lessons.map(lesson => (
-          <article key={lesson._id}>
+          <li key={lesson._id}>
             <header>
-                <h1>{course.title}</h1>
-                <p>By {course.instructor.user.username}</p>
+              <h3>{lesson.title}</h3>
+              <p>{lesson.content}</p>
 
-//          sjndkpfksnmdfkn
+    {/* sjndkpfksnmdfkn */}
                 {course.instructor.user._id === user._id && (
                   <>
                       <button
@@ -195,7 +195,6 @@ const CourseDetails = (props) => {
                   </>
                 )}
             </header>
-            <p>{lesson.content}</p>
             {editingLessonId === lesson._id && (
               <form
                   onSubmit={(e) => {
@@ -231,7 +230,8 @@ const CourseDetails = (props) => {
                   </button>
               </form>
           )}
-//           sodfnbiaubfouabfoubdfubad
+ {/* sodfnbiaubfouabfoubdfubad */}
+
             {user.role === 'student' && enrollment.status === 'pending' ? (
               enrollment.completedLessonIds.includes(lesson._id) ? (
                 <p>Completed</p>
@@ -239,8 +239,9 @@ const CourseDetails = (props) => {
                 <button onClick={() => completeLesson(lesson._id)}>Complete</button>
               )
             ) : null}
-          </article>
+          </li>
         ))}
+        </ul>
       </section>
     </main>
   )
