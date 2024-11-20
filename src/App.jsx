@@ -18,6 +18,7 @@ import * as authService from '../src/services/authService';
 import * as  courseService from '../src/services/courseService'
 
 
+
 // eslint-disable-next-line react-refresh/only-export-components
 export const AuthedUserContext = createContext(null);
 
@@ -41,7 +42,7 @@ const App = () => {
         course.instructor = await authService.getInstructorById(course.instructor);
       }));
 
-      console.log(coursesData);
+      // console.log(coursesData);
 
       setCourses(coursesData);
     };
@@ -49,12 +50,13 @@ const App = () => {
   }, [user]);
 
   const handleAddCourse = async (newCourseData) => {
+    
     newCourseData.instructor = user;
-    // console.log('New course data ',newCourseData);
-    const newCourse = await courseService.create(newCourseData);
-    newCourse.instructor = user.username;
+    const newCourse = await courseService.create(newCourseData)
+    newCourse.instructor = await authService.getInstructorById(newCourse.instructor);
+    // console.log('New Course after added to db', newCourse);
     setCourses([newCourse, ...courses]);
-    // console.log('New Course after added to db',newCourse);
+    // console.log('New Coursessss after added to db', courses);
 
     navigate('/courses');
   }
@@ -70,6 +72,7 @@ const App = () => {
     setCourses(courses.filter(course => course._id !== courseId));
     navigate('/courses');
   }
+
 
   return (
     <>
@@ -94,7 +97,7 @@ const App = () => {
 
                 // student routes
                 <>
-                  <Route path="/courses/:courseId" element={<CourseDetails  />} />
+                  <Route path="/courses/:courseId" element={<CourseDetails />} />
                   <Route path="/" element={<Dashboard user={user} />} />
                 </>
               )}

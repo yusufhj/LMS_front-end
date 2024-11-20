@@ -18,7 +18,7 @@ const show = async (courseId) => {
               Authorization: `Bearer ${localStorage.getItem('token')}`
           }
       })
-      console.log(res)
+      // console.log(res)
       return res.json()
   } catch (error) {
       console.log(error)
@@ -35,6 +35,7 @@ const create = async (courseFormData) => {
           },
           body: JSON.stringify(courseFormData)
       })
+      console.log(res)
       return res.json()
   } catch (error) {
       console.log(error)
@@ -117,7 +118,89 @@ const updateLesson = async (courseId, lessonId, lessonFormData) => {
   }
 };
 
+const createEnrollment = async (courseId) => {
+  try {
+    const res = await fetch(`${BASE_URL}/${courseId}/enroll`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+}
 
-export { index, show, create, createLesson, deleteCourse, update, updateLesson, deleteLesson }
+const unenroll = async (courseId) => {
+  try {
+    const res = await fetch(`${BASE_URL}/${courseId}/unenroll`, {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+const enrollAgain = async (courseId) => {
+  try {
+    const res = await fetch(`${BASE_URL}/${courseId}/enroll`, {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+const getEnrollmentForUser = async (courseId, userId) => {
+  try {
+    const res = await fetch(`${BASE_URL}/${courseId}/enrollments/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+const completeLesson = async (courseId, lessonId) => {
+  try {
+    const res = await fetch(`${BASE_URL}/${courseId}/lessons/${lessonId}/complete`, {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+const completeCourse = async (courseId) => {
+  try {
+    const res = await fetch(`${BASE_URL}/${courseId}/complete`, {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export { index, show, create, createLesson, deleteCourse, update, updateLesson, deleteLesson, createEnrollment, unenroll, getEnrollmentForUser, enrollAgain, completeLesson, completeCourse };
   
 
