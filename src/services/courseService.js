@@ -155,8 +155,7 @@ const enrollAgain = async (courseId) => {
       },
     });
     return res.json();
-  }
-  catch (error) {
+  } catch (error) {
     console.log(error);
   }
 }
@@ -183,12 +182,25 @@ const completeLesson = async (courseId, lessonId) => {
       },
     });
     return res.json();
-  }
-  catch (error) {
+  } catch (error) {
     console.log(error);
   }
 }
 
-export { index, show, create, createLesson, deleteCourse, update, updateLesson, deleteLesson, createEnrollment, unenroll, getEnrollmentForUser, enrollAgain, completeLesson };
+const completeCourse = async (courseId) => {
+  try {
+    const res = await fetch(`${BASE_URL}/${courseId}/complete`, {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export { index, show, create, createLesson, deleteCourse, update, updateLesson, deleteLesson, createEnrollment, unenroll, getEnrollmentForUser, enrollAgain, completeLesson, completeCourse };
   
 

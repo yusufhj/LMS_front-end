@@ -94,11 +94,33 @@ const CourseDetails = (props) => {
   }
 
   const completeLesson = async (lessonId) => {
-    const completedLesson = await courseService.completeLesson(courseId, lessonId);
-    setEnrollment({ ...enrollment, completedLessonIds: [...enrollment.completedLessonIds, lessonId] });
-    console.log('Completed Lesson', completedLesson);
-    console.log('Enrollment after completing lesson', enrollment);
+    // try {
+    //   const completedLesson = await courseService.completeLesson(courseId, lessonId);
+    //   setEnrollment({ ...enrollment, completedLessonIds: [...enrollment.completedLessonIds, lessonId] });
+    //   console.log('Completed Lesson', completedLesson);
+    //   console.log('Enrollment after completing lesson', enrollment);
+    // } catch (error) {
+    //   console.log(error);
+    // }
+    try {
+      await courseService.completeLesson(courseId, lessonId);
+      const updatedCompletedLessons = [...enrollment.completedLessonIds, lessonId];
+      setEnrollment({ ...enrollment, completedLessonIds: updatedCompletedLessons });
 
+      // Check if all lessons are completed
+      if (updatedCompletedLessons.length === course.lessons.length) {
+        await completeCourse();
+      }
+    } catch (error) {
+      console.error('Error completing lesson:', error);
+    }
+  }
+
+  const completeCourse = async () => {
+    const completedCourse = await courseService.completeCourse(courseId);
+    setEnrollment({ ...enrollment, status: 'completed' });
+    console.log('Completed Course', completedCourse);
+    console.log('Enrollment after completing course', enrollment);
   }
 
     if (!course) return <h1>Loading...</h1>
