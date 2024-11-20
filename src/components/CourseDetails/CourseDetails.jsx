@@ -78,7 +78,7 @@ const CourseDetails = (props) => {
     if (user.role === 'student') {
       fetchEnrollment();
     }
-  }, [courseId, user._id, enrollment?.status]);
+  }, [courseId, user._id, enrollment?.status, user.role]);
 
   const enrollmentDisplay = () => {
     if (user.role === 'student') {
