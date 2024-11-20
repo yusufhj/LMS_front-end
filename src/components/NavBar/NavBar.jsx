@@ -26,7 +26,7 @@ const NavBar = ({ handleSignout }) => {
               ) : (
                 // student navbar
                 <li>
-                  <Link to="/courses">My Courses</Link>
+                  <Link to="/my-enrollments">My Enrollments</Link>
                 </li>
               )
             }

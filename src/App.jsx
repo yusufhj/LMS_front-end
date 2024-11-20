@@ -13,6 +13,7 @@ import CourseList from './components/CourseList/CourseList'
 import CourseForm from './components/CourseForm/CourseForm'
 import CourseDetails from './components/CourseDetails/CourseDetails'; 
 
+
 // Services
 import * as authService from '../src/services/authService';
 import * as  courseService from '../src/services/courseService'
@@ -73,7 +74,29 @@ const App = () => {
     navigate('/courses');
   }
 
+  const [enrollments, setEnrollments] = useState([]);
 
+
+  useEffect(() => {
+    const fetchEnrollments = async () => {
+        const enrollmentsData = await courseService.getEnrollments();
+        console.log(enrollmentsData);
+        setEnrollments(enrollmentsData);
+        // console.log(enrollments);
+    };
+    if (user) fetchEnrollments();
+  }, [user]);
+
+  useEffect(() => {
+    if (user) {
+      const enrolledCourses = enrollments.map(enrollment => enrollment.course);
+      setCourses(enrolledCourses);
+    }
+  }, [user, enrollments]);
+
+  
+
+  
   return (
     <>
       <AuthedUserContext.Provider value={user}>
@@ -97,16 +120,17 @@ const App = () => {
 
                 // student routes
                 <>
-                  <Route path="/courses/:courseId" element={<CourseDetails />} />
                   <Route path="/" element={<Dashboard user={user} />} />
+                  <Route path="/courses/:courseId" element={<CourseDetails />} />
+                  <Route path='/my-enrollments' element={<CourseList courses={courses} />} />
                 </>
-              )}
-            </>
-          ) : (
+                )}
+              </>
+            ) : (
 
             // not signed in routes
             <Route path="/" element={<Landing />} />
-          )}
+        )}
 
           <Route path="/signup" element={<SignupForm setUser={setUser} />} />
           <Route path='/signin' element={<SigninForm setUser={setUser} />} />
