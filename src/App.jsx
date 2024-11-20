@@ -18,6 +18,7 @@ import * as authService from '../src/services/authService';
 import * as  courseService from '../src/services/courseService'
 
 
+
 // eslint-disable-next-line react-refresh/only-export-components
 export const AuthedUserContext = createContext(null);
 
@@ -41,7 +42,7 @@ const App = () => {
         course.instructor = await authService.getInstructorById(course.instructor);
       }));
 
-      console.log(coursesData);
+      // console.log(coursesData);
 
       setCourses(coursesData);
     };
@@ -72,11 +73,6 @@ const App = () => {
     navigate('/courses');
   }
 
-  const handleEnroll = async (courseId) => {
-    const enrollment = await courseService.enroll(courseId);
-    console.log('Enrolled in course', enrollment);
-    navigate('/courses/' + courseId);
-  }
 
   return (
     <>
@@ -101,7 +97,7 @@ const App = () => {
 
                 // student routes
                 <>
-                  <Route path="/courses/:courseId" element={<CourseDetails handleEnroll={handleEnroll} />} />
+                  <Route path="/courses/:courseId" element={<CourseDetails />} />
                   <Route path="/" element={<Dashboard user={user} />} />
                 </>
               )}
