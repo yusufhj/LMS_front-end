@@ -12,6 +12,7 @@ import SigninForm from './components/SigninForm/SigninForm'
 import CourseList from './components/CourseList/CourseList'
 import CourseForm from './components/CourseForm/CourseForm'
 import CourseDetails from './components/CourseDetails/CourseDetails'; 
+import LessonForm from './components/LessonForm/LessonForm';
 
 // Services
 import * as authService from '../src/services/authService';
@@ -91,6 +92,7 @@ const App = () => {
                   <Route path="/courses/:courseId" element={<CourseDetails handleDeleteCourse={handleDeleteCourse}  />} />
                   <Route path="/courses/new" element={<CourseForm handleAddCourse={handleAddCourse} />} />
                   <Route path="/courses/:courseId/edit" element={<CourseForm handleUpdateCourse={handleUpdateCourse} />} />
+                  <Route path="/courses/:courseId/lessons/:lessonId/edit" element={<LessonForm />} />
                 </>
 
               ) : (
