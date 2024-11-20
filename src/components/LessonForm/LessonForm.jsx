@@ -1,4 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import * as courseService from '../../services/courseService';
 
 const LessonForm = ({ handleAddLesson }) => {
   const [formData, setFormData] = useState({
@@ -6,13 +9,37 @@ const LessonForm = ({ handleAddLesson }) => {
     content: '',
   });
 
+  const { courseId, lessonId } = useParams();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchCourse = async () => {
+      const courseData = await courseService.show(courseId);
+      setFormData(courseData.lessons.find((lesson) => lesson._id === lessonId));
+    };
+    if (lessonId && courseId) {
+      fetchCourse();
+    }
+  }, [courseId, lessonId]);
+
+
+
   const handleChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    handleAddLesson(formData);
+    if (!formData.title || !formData.content) {
+      alert('Please fill in all required fields.');
+      return;
+    }
+    if (lessonId && courseId) {
+      courseService.updateLesson(courseId, lessonId ,formData);
+      navigate(`/courses/${courseId}`);
+    } else {
+      handleAddLesson(formData);
+    }
     setFormData({ title: '', content: '' });
   };
 
@@ -35,7 +62,9 @@ const LessonForm = ({ handleAddLesson }) => {
           value={formData.content}
           onChange={handleChange}
         ></textarea>
-        <button type="submit">ADD LESSON</button>
+        <button type="submit">
+          {lessonId && courseId ? 'SAVE CHANGES' : 'ADD LESSON'}
+        </button>
       </form>
     </div>
   );

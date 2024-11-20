@@ -25,9 +25,11 @@ const NavBar = ({ handleSignout }) => {
                 </li>
               ) : (
                 // student navbar
-                <li>
-                  <Link to="/courses">My Courses</Link>
-                </li>
+                // <li>
+                //   <Link to="/courses">My Courses</Link>
+                // </li>
+                <>
+                </>
               )
             }
 

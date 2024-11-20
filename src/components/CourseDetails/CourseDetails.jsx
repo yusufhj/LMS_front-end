@@ -9,10 +9,6 @@ const CourseDetails = (props) => {
   const { courseId } = useParams()
   const [course, setCourse] = useState(null)
   const [enrollment, setEnrollment] = useState(null)
-  
-  // ALIIII
-  const [editingLessonId, setEditingLessonId] = useState(null); 
-  const [editingLessonData, setEditingLessonData] = useState({ title: '', content: '' }); 
 
   const user = useContext(AuthedUserContext);
 
@@ -34,18 +30,6 @@ const CourseDetails = (props) => {
       console.log(error)
     }
   }
-
-//   ALIII
-  const handleEditLesson = async () => {
-    const updatedLesson = await courseService.updateLesson(courseId, editingLessonId, editingLessonData);
-    setCourse({
-      ...course,
-      lessons: course.lessons.map((lesson) =>
-      lesson._id === editingLessonId ? updatedLesson : lesson
-      ),
-    });
-    setEditingLessonId(null); 
-  };
 
   const handleDeleteLesson = async (lessonId) => {
       await courseService.deleteLesson(courseId, lessonId);
@@ -114,14 +98,6 @@ const CourseDetails = (props) => {
   }
 
   const completeLesson = async (lessonId) => {
-    // try {
-    //   const completedLesson = await courseService.completeLesson(courseId, lessonId);
-    //   setEnrollment({ ...enrollment, completedLessonIds: [...enrollment.completedLessonIds, lessonId] });
-    //   console.log('Completed Lesson', completedLesson);
-    //   console.log('Enrollment after completing lesson', enrollment);
-    // } catch (error) {
-    //   console.log(error);
-    // }
     try {
       await courseService.completeLesson(courseId, lessonId);
       const updatedCompletedLessons = [...enrollment.completedLessonIds, lessonId];
@@ -143,9 +119,9 @@ const CourseDetails = (props) => {
     console.log('Enrollment after completing course', enrollment);
   }
 
-    if (!course) return <h1>Loading...</h1>
+  if (!course) return <h1>Loading...</h1>
   
-    return (
+  return (
     <main>
       <header>
 
@@ -180,58 +156,14 @@ const CourseDetails = (props) => {
               <h3>{lesson.title}</h3>
               <p>{lesson.content}</p>
 
-    {/* sjndkpfksnmdfkn */}
-                {course.instructor.user._id === user._id && (
-                  <>
-                      <button
-                          onClick={() => {
-                              setEditingLessonId(lesson._id);
-                              setEditingLessonData({ title: lesson.title, content: lesson.content });
-                          }}
-                      >
-                          Edit
-                      </button>
-                      <button onClick={() => handleDeleteLesson(lesson._id)}>Delete</button>
-                  </>
-                )}
+              {course.instructor.user._id === user._id &&  (
+                <>
+                  <Link to={`/courses/${courseId}/lessons/${lesson._id}/edit`}>Edit</Link>
+                  <button onClick={() => handleDeleteLesson(lesson._id)}>Delete</button>
+                </>
+              )}
             </header>
-            {editingLessonId === lesson._id && (
-              <form
-                  onSubmit={(e) => {
-                      e.preventDefault();
-                      handleEditLesson();
-                  }}
-              >
-                  <label>
-                      Lesson Title:
-                      <input
-                          type="text"
-                          value={editingLessonData.title}
-                          onChange={(e) =>
-                              setEditingLessonData({ ...editingLessonData, title: e.target.value })
-                          }
-                      />
-                  </label>
-                  <label>
-                      Lesson Content:
-                      <textarea
-                          value={editingLessonData.content}
-                          onChange={(e) =>
-                              setEditingLessonData({ ...editingLessonData, content: e.target.value })
-                          }
-                      ></textarea>
-                  </label>
-                  <button type="submit">Save Changes</button>
-                  <button
-                      type="button"
-                      onClick={() => setEditingLessonId(null)}
-                  >
-                      Cancel
-                  </button>
-              </form>
-          )}
- {/* sodfnbiaubfouabfoubdfubad */}
-
+            
             {user.role === 'student' && enrollment.status === 'pending' ? (
               enrollment.completedLessonIds.includes(lesson._id) ? (
                 <p>Completed</p>
