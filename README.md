@@ -1,6 +1,5 @@
 # LMS (Front-End)
-## Link to Back-End Repository
-[Back-End Repository](https://github.com/yusufhj/LMS_back-end)
+## Deployment Link
 
 ## Project Description
 This project is a Learning Management System (LMS) that allows users to create, read, update, and delete courses. Users can also enroll in courses and view their course progress. The project is built using React, Node.js, Express, and MongoDB.
@@ -37,3 +36,20 @@ This project is a Learning Management System (LMS) that allows users to create, 
 
 ## ERD Model
 ![ERD Model](public/assets/ERD.png)
+
+## Technologies Used
+- React
+- Node.js
+- Express
+- MongoDB
+
+## Future Enhancements
+- Add a link to My Courses page that allows instructor to view the courses they have created.
+- Add a link to My Progress that allows students to view the courses they have enrolled in.
+- Add a feature that allows users to search for courses.
+- Add categories for the courses and allows users to filter courses by category.
+- Add a feature that allows users to rate courses.
+- Add a feature that allows users to leave comments on courses.
+
+## Link to Back-End Repository
+[Back-End Repository](https://github.com/yusufhj/LMS_back-end)
