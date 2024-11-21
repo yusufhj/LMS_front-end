@@ -1,3 +1,4 @@
+import './LessonForm.css';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
@@ -44,7 +45,8 @@ const LessonForm = ({ handleAddLesson }) => {
   };
 
   return (
-    <div>
+    <div className='lesson-form'>
+      <h2>{lessonId && courseId ? 'Edit Lesson' : 'Add Lesson'}</h2>
       <form onSubmit={handleSubmit}>
         <label htmlFor="lesson-title">Lesson Title:</label>
         <input
@@ -54,6 +56,7 @@ const LessonForm = ({ handleAddLesson }) => {
           value={formData.title}
           onChange={handleChange}
           required
+          placeholder='Lesson Title'
         />
         <label htmlFor="lesson-content">Lesson Content:</label>
         <textarea
@@ -61,6 +64,8 @@ const LessonForm = ({ handleAddLesson }) => {
           id="lesson-content"
           value={formData.content}
           onChange={handleChange}
+          required
+          placeholder='Lesson Content'
         ></textarea>
         <button type="submit">
           {lessonId && courseId ? 'SAVE CHANGES' : 'ADD LESSON'}

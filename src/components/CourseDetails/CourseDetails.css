@@ -1,4 +1,4 @@
-body {
+.courseDescription {
   margin: 0;
   font-family: 'Arial', sans-serif;
   background-color: #f9f9f9;
@@ -9,10 +9,12 @@ main {
   padding: 20px;
 }
 
-header {
-  text-align: center;
-  margin-bottom: 40px;
+.course-instructor,
+.course-description {
+  font-size: 1.2rem;
+  color: #555;
 }
+
 
 .course-title {
     font-size: 2.5rem;
@@ -20,11 +22,7 @@ header {
     margin-bottom: 10px;
   }
   
-  .course-instructor {
-    font-size: 1.2rem;
-    color: #777;
-    margin-bottom: 20px;
-  }
+
   
   .course-actions {
     margin-top: 20px;
@@ -76,12 +74,6 @@ header {
     font-size: 1.8rem;
     margin-bottom: 20px;
   }
-  
-  .lesson-list {
-    padding: 0;
-    list-style-type: none;
-  }
-  
   .lesson-item {
     background-color: #fff;
     border-radius: 8px;
@@ -91,13 +83,16 @@ header {
   }
   
   .lesson-item header {
-    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column; /* Stack the title and content vertically */
+    justify-content: space-between;  /* Space between title/content and actions */
+    align-items: flex-start;  /* Align both title and content to the left */
   }
   
   .lesson-title {
     font-size: 1.5rem;
     color: #333;
-    margin-bottom: 5px;
+    margin-bottom: 10px; /* Space between the title and content */
   }
   
   .lesson-content {
@@ -106,12 +101,13 @@ header {
   }
   
   .lesson-actions {
-    margin-top: 10px;
+    display: flex;
+    gap: 10px;  /* Space between the buttons */
+    margin-left: auto;  /* Pushes the actions to the right */
   }
   
   .lesson-actions a,
   .lesson-actions button {
-    margin-right: 10px;
     font-size: 1rem;
     padding: 5px 15px;
     border-radius: 5px;
@@ -138,30 +134,35 @@ header {
     background-color: #c82333;
   }
   
-  .complete-lesson-button {
-    background-color: #28a745; /* Green background */
-    color: white;
-    padding: 12px 24px; /* Bigger padding for better click area */
-    border: none;
-    border-radius: 50px; /* Rounded corners */
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s ease-in-out; /* Smooth hover transition */
+  .lesson-list {
+    padding: 0;
+    list-style-type: none;
+    margin-top: 20px; /* Optional space from above content */
+  }
+
+  .lesson-actions .complete-lesson-button {
+    display: inline-flex; /* Ensure the icon and text stay aligned */
+    align-items: center; /* Align items vertically */
+    justify-content: center;
+    gap: 8px; /* Space between icon and text */
+    padding: 12px 24px;
     font-size: 1rem;
     font-weight: bold;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px; /* Space between text and icon */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);;
+    border-radius: 50px;
+    background-color: #28a745;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s ease-in-out;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   
-  .complete-lesson-button:hover {
-    background-color: #218838; /* Darker green on hover */
-    transform: translateY(-2px); /* Slight lift on hover for a tactile feel */
+  .lesson-actions .complete-lesson-button:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
   }
   
-  .complete-lesson-button:active {
-    transform: translateY(2px); /* Push the button down when clicked */
+  .lesson-actions .complete-lesson-button:active {
+    transform: translateY(2px);
   }
   
   .button-text {
@@ -190,13 +191,15 @@ header {
   }
   
   .enrollment-button {
-    padding: 10px 20px;
-    font-size: 1rem;
+    margin-top: 20px;
+    padding: 10px 30px;
+    font-size: 1.5rem;
+    font-weight: bold;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
-    margin-top: 10px;
+    
   }
   
   .enrollment-button.enrolled {
@@ -262,7 +265,7 @@ header {
   margin-top: 20px;
 }
 
-.lesson.completed {
+.lesson-actions .lesson.completed {
   background-color: #28a745;
   color: white;
   padding: 10px 20px;
@@ -275,3 +278,20 @@ header {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin-top: 10px;
 }
+
+.courseDescription {
+  padding: 20px;
+  background-color: #f8f9fa;
+}
+
+.course-header {
+  display: flex;
+  justify-content: space-between; /* Places the content and buttons apart */
+  align-items: flex-start; /* Aligns the content and buttons to the top */
+  margin-top: 20px;
+}
+
+.course-info {
+  max-width: 70%; /* Ensures course details take up most of the space */
+}
+

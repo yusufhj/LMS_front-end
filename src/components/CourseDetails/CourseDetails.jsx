@@ -8,6 +8,7 @@ import * as courseService from '../../services/courseService';
 import * as authService from '../../services/authService';
 
 import LessonForm from '../LessonForm/LessonForm';
+import LoadingnSpinner from '../LoadingSpinner/LoadingSpinner';
 
 const CourseDetails = (props) => {
   const { courseId } = useParams()
@@ -130,14 +131,17 @@ const CourseDetails = (props) => {
     console.log('Enrollment after completing course', enrollment);
   }
 
-  if (!course) return <h1>Loading...</h1>
+  if (!course) return <LoadingnSpinner />
   
   return (
-    <main>
-      <header>
+    <main className='courseDescription'>
+      <header className='course-header'>
+        <div className='course-info'>
+          <h1 className='course-title'>{course.title}</h1>
+          <p className='course-instructor'>Course Instructor:  {course.instructor.user.username}</p>
+          <p className='course-description'>Course Description: {course.description}</p>
+        </div>
 
-        <h1 className='course-title'>{course.title}</h1>
-        <p className='course-instructor'>By {course.instructor.user.username}</p>
 
         {course.instructor.user._id === user._id && (
           <div className='course-actions'>
@@ -147,26 +151,26 @@ const CourseDetails = (props) => {
             </button>
           </div>
         )}
-      <p className='course-description'>{course.description}</p>
         {user.role === 'student' && (
           <>
             {enrollmentDisplay()}
           </>
         )}
       </header>
+
       <section>
       {course.instructor.user._id === user._id && (
         <LessonForm handleAddLesson={handleAddLesson} />
       )}
-        <h2>Lessons</h2>
+        <h2 className='course-title'>Lessons</h2>
         {!course.lessons.length && <p className="enrollment-status no-lessons">There are no lessons.</p>}
 
         <ul className='lesson-list'>
         {course.lessons.map(lesson => (
           <li key={lesson._id} className='lesson-item'>
             <header>
-              <h3 className='lesson-title'>{lesson.title}</h3>
-              <p className='lesson-content'>{lesson.content}</p>
+              <h3 className='lesson-title'>Lesson Title: {lesson.title}</h3>
+              <p className='lesson-content'>Lesson Content: {lesson.content}</p>
 
               {course.instructor.user._id === user._id &&  (
                 <div className='lesson-actions'>
@@ -174,18 +178,21 @@ const CourseDetails = (props) => {
                   <button onClick={() => handleDeleteLesson(lesson._id)}>Delete</button>
                 </div>
               )}
-            </header>
-            
             {user.role === 'student' && enrollment.status === 'pending' ? (
               enrollment.completedLessonIds.includes(lesson._id) ? (
-                <p className="lesson completed">Completed</p>
+                <div className='lesson-actions'>
+                  <p className="lesson completed">Completed</p>
+                </div>
               ) : (
-                <button className="complete-lesson-button" onClick={() => completeLesson(lesson._id)}>
-                  <span className="button-text">Complete Lesson</span>
-                  <span className="button-icon">✅</span>
-                </button>
+                <div className='lesson-actions'>
+                  <button className="complete-lesson-button" onClick={() => completeLesson(lesson._id)}>
+                    <span className="button-text">Complete Lesson</span>
+                    <span className="button-icon">✅</span>
+                  </button>
+                </div>
               )
             ) : null}
+            </header>
           </li>
         ))}
         </ul>

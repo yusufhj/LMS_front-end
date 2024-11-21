@@ -1,3 +1,4 @@
+import './CourseForm.css'
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import * as courseService from '../../services/courseService'
@@ -56,7 +57,7 @@ const CourseForm = props => {
   }
 
   return (
-    <main>
+    <main className='course-form'>
       {loading ? (
         <p>Loading...</p>
       ) : (
@@ -70,6 +71,7 @@ const CourseForm = props => {
             id="title-input"
             value={formData.title}
             onChange={handleChange}
+            placeholder='Course Title'
           />
           <label htmlFor="description-input">Description</label>
           <textarea
@@ -79,8 +81,9 @@ const CourseForm = props => {
             id="description-input"
             value={formData.description}
             onChange={handleChange}
+            placeholder='Course Description'
           />
-          <button type="submit">Submit</button>
+          <button type="submit">{courseId ? 'Update Course' : 'Add New Course'}</button>
         </form>
       )}
     </main>

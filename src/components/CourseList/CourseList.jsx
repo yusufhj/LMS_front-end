@@ -1,8 +1,9 @@
 import './CourseList.css'
 import { Link } from 'react-router-dom';
+import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 
 const CourseList = ({ courses }) => {
-  if (!courses) return <h1>Loading...</h1>;
+  if (!courses) return <LoadingSpinner />;
   return (
     <main className="course-list-container">
       <h1 className="course-list-header">Courses</h1>

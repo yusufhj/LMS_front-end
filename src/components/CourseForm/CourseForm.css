@@ -1,0 +1,88 @@
+/* Main container for the form */
+.course-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+    padding: 20px;
+    background-color: #f4f7fa;
+  }
+  
+  /* Container for the course form */
+  .course-form form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+  }
+  
+  /* Heading style */
+  .course-form form h1 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  /* Label styles */
+  .course-form form label {
+    display: block;
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 8px;
+    font-weight: bold;
+  }
+  
+  /* Input field styles */
+  .course-form form input,
+  .course-form form textarea {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease-in-out;
+  }
+  
+  /* Focused input fields */
+  .course-form form input:focus,
+  .course-form form textarea:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  /* Button styles */
+  .course-form form button {
+    background-color: #007bff;
+    color: white;
+    font-size: 1rem;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease-in-out, transform 0.2s;
+  }
+  
+  /* Button hover and active states */
+  .course-form form button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+  }
+  
+  .course-form form button:active {
+    transform: translateY(2px);
+  }
+  
+  /* Loading message styling */
+  .course-form p {
+    font-size: 1.2rem;
+    color: #007bff;
+    text-align: center;
+  }
+  
