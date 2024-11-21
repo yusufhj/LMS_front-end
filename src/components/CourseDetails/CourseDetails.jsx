@@ -1,8 +1,12 @@
+import './CourseDetails.css';
+
 import { useParams, Link } from 'react-router-dom';
 import { useEffect, useState, useContext } from 'react';
 import { AuthedUserContext } from '../../App';
+
 import * as courseService from '../../services/courseService';
 import * as authService from '../../services/authService';
+
 import LessonForm from '../LessonForm/LessonForm';
 
 const CourseDetails = (props) => {
@@ -82,16 +86,23 @@ const CourseDetails = (props) => {
 
   const enrollmentDisplay = () => {
     if (user.role === 'student') {
+      if (course.lessons.length === 0) {
+        return <p className="enrollment-status no-lessons">This course has no lessons. Wait for the instructor to add lessons.</p>;
+      }
       if (enrollment?.status) {
         if (enrollment.status === 'completed') {
-          return <p>Completed</p>
+          return (
+            <p className="enrollment-status completed">
+              <span className="achievement-icon">🏆</span> Completed
+            </p>
+          );
         } else if (enrollment.status === 'pending') {
-          return <button onClick={() => handleEnroll(courseId)}>Unenroll</button>
+          return <button className="enrollment-button withdrawn" onClick={() => handleEnroll(courseId)}>Unenroll</button>
         } else if (enrollment.status === 'withdrawn') {
-          return <button onClick={() => handleEnroll(courseId)}>Enroll Again</button>
+          return <button className="enrollment-button pending" onClick={() => handleEnroll(courseId)}>Enroll Again</button>
         }
       }
-      return <button onClick={() => handleEnroll(courseId)}>Enroll</button>
+      return <button className="enrollment-button default" onClick={() => handleEnroll(courseId)}>Enroll</button>
     } else {
       return null;
     }
@@ -125,50 +136,54 @@ const CourseDetails = (props) => {
     <main>
       <header>
 
-        <h1>{course.title}</h1>
-        <p>By {course.instructor.user.username}</p>
-    
+        <h1 className='course-title'>{course.title}</h1>
+        <p className='course-instructor'>By {course.instructor.user.username}</p>
+
         {course.instructor.user._id === user._id && (
-          <>
-            <Link to={`/courses/${courseId}/edit`}>EDIT</Link>
-            <button onClick={() => props.handleDeleteCourse(courseId)}>
+          <div className='course-actions'>
+            <Link className='edit-button' to={`/courses/${courseId}/edit`}>EDIT</Link>
+            <button className='delete-button' onClick={() => props.handleDeleteCourse(courseId)}>
               DELETE
             </button>
-          </>
+          </div>
         )}
+      <p className='course-description'>{course.description}</p>
         {user.role === 'student' && (
           <>
             {enrollmentDisplay()}
           </>
         )}
       </header>
-      <p>{course.description}</p>
       <section>
       {course.instructor.user._id === user._id && (
         <LessonForm handleAddLesson={handleAddLesson} />
       )}
-        <h2>lessons</h2>
-        {!course.lessons.length && <p>There are no lessons.</p>}
-        <ul>
+        <h2>Lessons</h2>
+        {!course.lessons.length && <p className="enrollment-status no-lessons">There are no lessons.</p>}
+
+        <ul className='lesson-list'>
         {course.lessons.map(lesson => (
-          <li key={lesson._id}>
+          <li key={lesson._id} className='lesson-item'>
             <header>
-              <h3>{lesson.title}</h3>
-              <p>{lesson.content}</p>
+              <h3 className='lesson-title'>{lesson.title}</h3>
+              <p className='lesson-content'>{lesson.content}</p>
 
               {course.instructor.user._id === user._id &&  (
-                <>
+                <div className='lesson-actions'>
                   <Link to={`/courses/${courseId}/lessons/${lesson._id}/edit`}>Edit</Link>
                   <button onClick={() => handleDeleteLesson(lesson._id)}>Delete</button>
-                </>
+                </div>
               )}
             </header>
             
             {user.role === 'student' && enrollment.status === 'pending' ? (
               enrollment.completedLessonIds.includes(lesson._id) ? (
-                <p>Completed</p>
+                <p className="lesson completed">Completed</p>
               ) : (
-                <button onClick={() => completeLesson(lesson._id)}>Complete</button>
+                <button className="complete-lesson-button" onClick={() => completeLesson(lesson._id)}>
+                  <span className="button-text">Complete Lesson</span>
+                  <span className="button-icon">✅</span>
+                </button>
               )
             ) : null}
           </li>

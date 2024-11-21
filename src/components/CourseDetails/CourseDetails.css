@@ -1,0 +1,277 @@
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+main {
+  padding: 20px;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.course-title {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .course-instructor {
+    font-size: 1.2rem;
+    color: #777;
+    margin-bottom: 20px;
+  }
+  
+  .course-actions {
+    margin-top: 20px;
+  }
+  
+  .edit-button,
+  .delete-button {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-decoration: none;
+  }
+  
+  .edit-button {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .edit-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .delete-button {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .delete-button:hover {
+    background-color: #c82333;
+  }
+  
+  .course-description {
+    font-size: 1.2rem;
+    margin-bottom: 40px;
+    color: #555;
+    line-height: 1.6;
+  }
+  
+  .lesson-form {
+    margin-top: 30px;
+    margin-bottom: 40px;
+  }
+  
+  .lesson-form h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+  
+  .lesson-list {
+    padding: 0;
+    list-style-type: none;
+  }
+  
+  .lesson-item {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .lesson-item header {
+    margin-bottom: 15px;
+  }
+  
+  .lesson-title {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 5px;
+  }
+  
+  .lesson-content {
+    font-size: 1.1rem;
+    color: #777;
+  }
+  
+  .lesson-actions {
+    margin-top: 10px;
+  }
+  
+  .lesson-actions a,
+  .lesson-actions button {
+    margin-right: 10px;
+    font-size: 1rem;
+    padding: 5px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .lesson-actions a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .lesson-actions a:hover {
+    color: #0056b3;
+  }
+  
+  .lesson-actions button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+  }
+  
+  .lesson-actions button:hover {
+    background-color: #c82333;
+  }
+  
+  .complete-lesson-button {
+    background-color: #28a745; /* Green background */
+    color: white;
+    padding: 12px 24px; /* Bigger padding for better click area */
+    border: none;
+    border-radius: 50px; /* Rounded corners */
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s ease-in-out; /* Smooth hover transition */
+    font-size: 1rem;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px; /* Space between text and icon */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);;
+  }
+  
+  .complete-lesson-button:hover {
+    background-color: #218838; /* Darker green on hover */
+    transform: translateY(-2px); /* Slight lift on hover for a tactile feel */
+  }
+  
+  .complete-lesson-button:active {
+    transform: translateY(2px); /* Push the button down when clicked */
+  }
+  
+  .button-text {
+    font-size: 1rem; /* Adjust text size */
+  }
+  
+  .button-icon {
+    font-size: 1.2rem; /* Icon size */
+  }
+  
+  .no-lessons {
+    font-size: 1.2rem;
+    color: #666;
+    text-align: center;
+  }
+
+  .enrollment-status {
+    font-size: 1.2rem;
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .enrollment-status p {
+    font-size: 1.2rem;
+    color: #28a745; /* Green for completed */
+  }
+  
+  .enrollment-button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+  }
+  
+  .enrollment-button.enrolled {
+    background-color: #28a745; /* Green for Enrolled */
+    color: white;
+  }
+  
+  .enrollment-button.enrolled:hover {
+    background-color: #218838;
+  }
+  
+  .enrollment-button.pending {
+    background-color: #ffc107; /* Yellow for Pending */
+    color: white;
+  }
+  
+  .enrollment-button.pending:hover {
+    background-color: #e0a800;
+  }
+  
+  .enrollment-button.withdrawn {
+    background-color: #dc3545; /* Red for Withdrawn */
+    color: white;
+  }
+  
+  .enrollment-button.withdrawn:hover {
+    background-color: #c82333;
+  }
+  
+  .enrollment-button.default {
+    background-color: #007bff; /* Blue for default Enroll */
+    color: white;
+  }
+  
+  .enrollment-button.default:hover {
+    background-color: #0056b3;
+  }
+  
+  .enrollment-status.completed {
+    background-color: #28a745; /* Green background */
+    color: white;
+    padding: 15px 25px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 5px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+  }
+  
+  .enrollment-status.completed .achievement-icon {
+    margin-right: 10px;
+    font-size: 1.5rem;
+  }
+
+  /* For cases with no lessons */
+.enrollment-status.no-lessons {
+  font-size: 1.2rem;
+  color: #777;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.lesson.completed {
+  background-color: #28a745;
+  color: white;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 10px;
+}

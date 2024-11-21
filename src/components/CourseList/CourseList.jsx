@@ -1,21 +1,32 @@
+import './CourseList.css'
 import { Link } from 'react-router-dom';
 
-const CourseList = (props) => {
-  if (!props.courses) return <h1>Loading...</h1>;
+const CourseList = ({ courses }) => {
+  if (!courses) return <h1>Loading...</h1>;
   return (
-    <main>
-      <h1>Course List</h1>
-      {props.courses.map(course => (
-        <Link key={course._id} to={`/courses/${course._id}`}>
-          <article>
-            <header>
-              <h2>{course.title}</h2>
-              <p>By {course.instructor.user.username}</p>
-            </header>
-            <p>{course.description}</p>
-          </article>
-        </Link>
-      ))}
+    <main className="course-list-container">
+      <h1 className="course-list-header">Courses</h1>
+      {courses.length > 0 ? (
+        <div className="course-grid">
+          {courses.map((course) => (
+            <Link
+              key={course._id}
+              to={`/courses/${course._id}`}
+              className="course-link"
+            >
+              <article className="course-card">
+                <header>
+                  <h2 className="course-title">{course.title}</h2>
+                  <p className="course-instructor">By {course.instructor.user.username}</p>
+                </header>
+                <p className="course-description">{course.description}</p>
+              </article>
+            </Link>
+          ))}
+        </div>
+      ) : (
+        <p className="no-courses">No courses available. Check back later or create a new course!</p>
+      )}
     </main>
   );
 };
