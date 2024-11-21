@@ -1,11 +1,10 @@
-// SigninForm
-
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import * as authService from '../../services/authService'; // import the authservice
+import * as authService from '../../services/authService';
+import './SigninForm.css';
 
 const SigninForm = (props) => {
-  const navigate = useNavigate(); // added this for navigation purposes
+  const navigate = useNavigate();
   const [message, setMessage] = useState(['']);
   const [formData, setFormData] = useState({
     username: '',
@@ -24,7 +23,7 @@ const SigninForm = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const user = await authService.signin(formData); // TODO build signin service function
+      const user = await authService.signin(formData);
 
       props.setUser(user);
       navigate('/');
@@ -33,8 +32,14 @@ const SigninForm = (props) => {
     }
   };
 
+  const { username, password } = formData;
+
+  const isFormInvalid = () => {
+    return !(username && password);
+  };
+
   return (
-    <main>
+    <main className='sign'>
       <h1>Sign In</h1>
       <p>{message}</p>
       <form autoComplete="off" onSubmit={handleSubmit}>
@@ -47,6 +52,7 @@ const SigninForm = (props) => {
             value={formData.username}
             name="username"
             onChange={handleChange}
+            placeholder='Write your username here...'
           />
         </div>
         <div>
@@ -58,12 +64,13 @@ const SigninForm = (props) => {
             value={formData.password}
             name="password"
             onChange={handleChange}
+            placeholder='Write your password here...'
           />
         </div>
         <div>
-          <button>Log In</button>
+          <button disabled={isFormInvalid()}>Log In</button>
           <Link to="/">
-            <button>Cancel</button>
+            <button className='cancel-button'>Cancel</button>
           </Link>
         </div>
       </form>

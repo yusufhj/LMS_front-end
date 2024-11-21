@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import * as authService from '../../services/authService'
+import '../SigninForm/SigninForm.css';
 
 const SignupForm = (props) => {
   const navigate = useNavigate();
@@ -40,7 +41,7 @@ const SignupForm = (props) => {
   };
 
   return (
-    <main>
+    <main className='sign'>
       <h1>Sign Up</h1>
       <p>{message}</p>
       <form onSubmit={handleSubmit}>
@@ -52,6 +53,7 @@ const SignupForm = (props) => {
             value={username}
             name="username"
             onChange={handleChange}
+            placeholder='Write your username here...'
           />
         </div>
         <div>
@@ -62,6 +64,7 @@ const SignupForm = (props) => {
             value={password}
             name="password"
             onChange={handleChange}
+            placeholder='Write your password here...'
           />
         </div>
         <div>
@@ -72,6 +75,7 @@ const SignupForm = (props) => {
             name="passwordConf"
             value={passwordConf}
             onChange={handleChange}
+            placeholder='Confirm your password...'
           />
         </div>
         <div>
@@ -82,12 +86,7 @@ const SignupForm = (props) => {
             onChange={handleChange} 
             value={role}
           >
-            <option 
-              value="student"
-
-            >
-                Student
-            </option>
+            <option value="student">Student</option>
             <option value="instructor">Instructor</option>
           </select>
         </div>
@@ -95,7 +94,7 @@ const SignupForm = (props) => {
         <div>
           <button disabled={isFormInvalid()}>Sign Up</button>
           <Link to="/">
-            <button>Cancel</button>
+            <button className='cancel-button'>Cancel</button>
           </Link>
         </div>
       </form>
