@@ -44,6 +44,7 @@ const CourseDetails = (props) => {
       lesson._id === editingLessonId ? updatedLesson : lesson
       ),
     });
+    console.log("EDINTINg",course)
     setEditingLessonId(null); 
   };
 
@@ -187,6 +188,8 @@ const CourseDetails = (props) => {
                           onClick={() => {
                               setEditingLessonId(lesson._id);
                               setEditingLessonData({ title: lesson.title, content: lesson.content });
+                              console.log(editingLessonData)
+                              console.log(editingLessonId)
                           }}
                       >
                           Edit
@@ -226,7 +229,7 @@ const CourseDetails = (props) => {
                       type="button"
                       onClick={() => setEditingLessonId(null)}
                   >
-                      Cancel
+                 Cancel
                   </button>
               </form>
           )}
