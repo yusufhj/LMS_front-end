@@ -4,6 +4,16 @@
 ## Project Description
 This project is a Learning Management System (LMS) that allows users to create, read, update, and delete courses. Users can also enroll in courses and view their course progress. The project is built using React, Node.js, Express, and MongoDB.
 
+## Screenshots
+### Home Page
+![Home Page](public/assets/HomePage.png)
+### Sign Up Page
+![Sign Up Page](public/assets/SignUp.png)
+### Course List Page
+![Courses Page](public/assets/CoursesPage.png)
+### Course Page
+![Course Page](public/assets/CoursePage.png)
+
 ## User Stories
 - As a user I expect to to have a signup form that includes a username, password, and a role.
 - As a user I want to sign in once my account is created.
