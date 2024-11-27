@@ -3,7 +3,7 @@
 [LMS (Learning Management System)](https://lms-front-end-navy.vercel.app)
 
 ## Project Description
-This project is a Learning Management System (LMS) that allows users to create, read, update, and delete courses. Users can also enroll in courses and view their course progress. The project is built using React, Node.js, Express, and MongoDB.
+The Learning Management System (LMS) is a dynamic web application designed to streamline the online learning experience for instructors and students. It enables instructors to create, manage, and edit courses complete with detailed lessons, while students can explore available courses, enroll, and track their progress as they complete lessons and courses. Built with a modern tech stack including React, Node.js, Express, and MongoDB, the LMS emphasizes user-friendly interaction, role-based access, and progress tracking to foster an engaging and efficient learning environment.
 
 ## Screenshots
 ### Home Page
