@@ -1,6 +1,6 @@
 # LMS (Front-End)
 ## Deployment Link
-![LMS](https://lms-front-end-navy.vercel.app)
+[LMS (Learning Management System)](https://lms-front-end-navy.vercel.app)
 
 ## Project Description
 This project is a Learning Management System (LMS) that allows users to create, read, update, and delete courses. Users can also enroll in courses and view their course progress. The project is built using React, Node.js, Express, and MongoDB.
