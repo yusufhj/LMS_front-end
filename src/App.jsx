@@ -19,7 +19,6 @@ import * as authService from '../src/services/authService';
 import * as  courseService from '../src/services/courseService'
 
 
-
 // eslint-disable-next-line react-refresh/only-export-components
 export const AuthedUserContext = createContext(null);
 
